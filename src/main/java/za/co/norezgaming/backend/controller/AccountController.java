@@ -1,12 +1,11 @@
 package za.co.norezgaming.backend.controller;
 
 
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import za.co.norezgaming.backend.controller.requestModels.CreateAccountModel;
+import za.co.norezgaming.backend.controller.responseModels.AccountResponse;
 import za.co.norezgaming.backend.domain.GenericResponseResource;
 import za.co.norezgaming.backend.service.AccountService;
 
@@ -23,5 +22,10 @@ public class AccountController {
     @PostMapping(value = "/create")
     public GenericResponseResource createAccount(@RequestBody CreateAccountModel createAccountModel) {
         return accountService.createAccount(createAccountModel);
+    }
+
+    @GetMapping(value ="/")
+    public AccountResponse getAccount() throws NotFoundException {
+        return accountService.getAccount();
     }
 }

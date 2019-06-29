@@ -20,4 +20,7 @@ public class CarouselContent {
     private String imageUrl;
     private String title;
     private String link;
+    private String description;
+    private String user;
+    private String userProfile;
 }

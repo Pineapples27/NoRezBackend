@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import za.co.norezgaming.backend.service.security.authority.UserDetailsServiceImplementation;
 import za.co.norezgaming.backend.service.security.models.JwtTokenFilterConfigurer;
 import za.co.norezgaming.backend.service.security.models.JwtTokenProvider;
 
@@ -23,11 +24,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+	@Autowired
+	UserDetailsServiceImplementation userDetailsService;
 
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth
+			.userDetailsService(userDetailsService)
+			.passwordEncoder(passwordEncoder());
 	}
 
 	@Override
@@ -37,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/test/**").permitAll()
 				.antMatchers("/authentication/**").permitAll()
                 .antMatchers("/account/**").permitAll()
+                .antMatchers("/content/**").permitAll()
 				.anyRequest().authenticated();
 
 		http.exceptionHandling().accessDeniedPage("/authentication");

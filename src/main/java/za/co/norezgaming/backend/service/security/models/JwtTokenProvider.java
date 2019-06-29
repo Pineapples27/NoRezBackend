@@ -37,13 +37,13 @@ public class JwtTokenProvider {
 		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
 	}
 
-	public String createToken(String accountId, String username, String role) {
+	public String createToken(String accountUUID, String username, Collection<GrantedAuthority> grantedAuthorityList) {
 
 		Long validityInMilliseconds = VALIDITY_IN_MILLISECONDS;
 		Map<String, Object> claims = new HashMap<>();
-		claims.put("UUID", accountId);
+		claims.put("UUID", accountUUID);
 		claims.put("gamerTag", username);
-		claims.put("Role", role);
+		claims.put(AUTHORITIES, grantedAuthorityList);
 
 		Date now = new Date();
 		Date validity = new Date(now.getTime() + validityInMilliseconds);

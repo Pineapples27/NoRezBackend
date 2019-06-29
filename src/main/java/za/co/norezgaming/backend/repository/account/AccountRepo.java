@@ -5,9 +5,11 @@ import org.springframework.stereotype.Repository;
 import za.co.norezgaming.backend.domain.account.Account;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface AccountRepo extends JpaRepository<Account, Long> {
     Optional<Account> findByGamerTag(String gamerTag);
-
+    Optional<Account> findByGamerTagIgnoreCase(String gamerTag);
+    Optional<Account> findByAccountUUID(UUID accountUUID);
 }

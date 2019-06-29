@@ -4,5 +4,6 @@ public enum CarouselFeature {
     REVIEWS,
     NEWS,
     PODCASTS,
-    EVENTS
+    EVENTS,
+    COSPLAY
 }
